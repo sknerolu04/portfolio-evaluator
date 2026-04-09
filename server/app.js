@@ -7,30 +7,29 @@ import errorHandler from './middleware/errorHandler.js';
 
 dotenv.config();
 
-// Connect to MongoDB
 connectDB();
 
 const app = express();
 
-// Middleware
 app.use(cors({
-  origin: '*',
+  origin: [
+    'https://portfolio-evaluator-delta.vercel.app',
+    'http://localhost:5173'
+  ],
   credentials: true,
 }));
+
 app.use(express.json());
 
-// Test route directly on app
 app.get('/', (req, res) => {
   res.json({ message: 'Server is working!' });
 });
 
-// Routes
 app.use('/api', profileRoutes);
 
-// Error Handler (must be last)
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
