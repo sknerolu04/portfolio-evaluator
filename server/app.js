@@ -6,18 +6,11 @@ import profileRoutes from './routes/profileRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
 
 dotenv.config();
-
 connectDB();
 
 const app = express();
 
-app.use(cors({
-  origin: [
-    'https://portfolio-evaluator-delta.vercel.app',
-    'http://localhost:5173'
-  ],
-  credentials: true,
-}));
+app.use(cors());
 
 app.use(express.json());
 
@@ -26,7 +19,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', profileRoutes);
-
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 8000;
